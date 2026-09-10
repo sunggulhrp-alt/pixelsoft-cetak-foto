@@ -1,1 +1,46 @@
+name: Build PixelSoft Cetak Foto APK
 
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download project ZIP
+        run: |
+          unzip -q pixelsoft-cetak-foto-v1.zip -d pixelsoft-project
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.10'
+
+      - name: Build APK
+        working-directory: pixelsoft-project
+        run: |
+          gradle assembleDebug --stacktrace
+
+      - name: Rename APK
+        run: |
+          cp pixelsoft-project/app/build/outputs/apk/debug/app-debug.apk \
+             pixelsoft-cetak-foto-v1.apk
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: PixelSoft-Cetak-Foto-v1
+          path: pixelsoft-cetak-foto-v1.apk
