@@ -16,7 +16,7 @@ jobs:
 
       - name: Download project ZIP
         run: |
-          unzip -q pixelsoft-cetak-foto-v1.6.zip -d pixelsoft-project
+          unzip -q pixelsoft-cetak-foto-v1.6-keyboard-fix.zip -d pixelsoft-project
 
       - name: Setup Java
         uses: actions/setup-java@v4
