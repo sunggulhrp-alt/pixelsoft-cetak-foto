@@ -23,27 +23,34 @@ jobs:
         run: |
           python3 - <<'PY'
           from pathlib import Path
-          p = Path('app/src/main/java/com/pixelsoft/cetakfoto/MainActivity.java')
-          s = p.read_text(encoding='utf-8')
-          replacements = {
-              '''Button jual = button("📄  Surat Jual Beli
-  Isi data → Buat surat Word", true);''': '''Button jual = button("📄  Surat Jual Beli\\nIsi data → Buat surat Word", true);''',
-              '''Button soon = button("📋  Surat Pernyataan
-  Segera hadir", false);''': '''Button soon = button("📋  Surat Pernyataan\\nSegera hadir", false);''',
-              '''Button soon2 = button("📋  Surat Kuasa
-  Segera hadir", false);''': '''Button soon2 = button("📋  Surat Kuasa\\nSegera hadir", false);''',
-          }
-          # Handle exact source indentation as well as a no-indentation variant.
-          variants = [
-              ('Button jual = button("📄  Surat Jual Beli\nIsi data → Buat surat Word", true);', 'Button jual = button("📄  Surat Jual Beli\\nIsi data → Buat surat Word", true);'),
-              ('Button soon = button("📋  Surat Pernyataan\nSegera hadir", false);', 'Button soon = button("📋  Surat Pernyataan\\nSegera hadir", false);'),
-              ('Button soon2 = button("📋  Surat Kuasa\nSegera hadir", false);', 'Button soon2 = button("📋  Surat Kuasa\\nSegera hadir", false);'),
+
+          p = Path("app/src/main/java/com/pixelsoft/cetakfoto/MainActivity.java")
+          s = p.read_text(encoding="utf-8")
+
+          replacements = [
+              (
+                  'Button jual = button("📄  Surat Jual Beli\nIsi data → Buat surat Word", true);',
+                  'Button jual = button("📄  Surat Jual Beli\\nIsi data → Buat surat Word", true);'
+              ),
+              (
+                  'Button soon = button("📋  Surat Pernyataan\nSegera hadir", false);',
+                  'Button soon = button("📋  Surat Pernyataan\\nSegera hadir", false);'
+              ),
+              (
+                  'Button soon2 = button("📋  Surat Kuasa\nSegera hadir", false);',
+                  'Button soon2 = button("📋  Surat Kuasa\\nSegera hadir", false);'
+              ),
           ]
-          for old, new in variants:
+
+          for old, new in replacements:
               if old not in s:
-                  raise SystemExit('Expected broken Java string not found: ' + old.splitlines()[0])
+                  raise SystemExit(
+                      "Expected broken Java string not found: "
+                      + old.splitlines()[0]
+                  )
               s = s.replace(old, new)
-          p.write_text(s, encoding='utf-8')
+
+          p.write_text(s, encoding="utf-8")
           PY
 
       - name: Setup Java
