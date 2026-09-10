@@ -37,10 +37,10 @@ jobs:
       - name: Rename APK
         run: |
           cp pixelsoft-project/app/build/outputs/apk/debug/app-debug.apk \
-             pixelsoft-cetak-foto-v1.apk
+             pixelsoft-cetak-foto-v1.1.apk
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: PixelSoft-Cetak-Foto-v1
-          path: pixelsoft-cetak-foto-v1.apk
+          name: PixelSoft-Cetak-Foto-v1.1
+          path: pixelsoft-cetak-foto-v1.1.apk
