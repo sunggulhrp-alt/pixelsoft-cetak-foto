@@ -16,7 +16,7 @@ jobs:
 
       - name: Download project ZIP
         run: |
-          unzip -q pixelsoft-cetak-foto-v1.12.4.zip -d pixelsoft-project
+          unzip -q pixelsoft-cetak-foto-v1.12.5.zip -d pixelsoft-project
 
       - name: Setup Java
         uses: actions/setup-java@v4
